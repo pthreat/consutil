@@ -46,7 +46,7 @@
 
 				if(!in_array($type,Array('long','short'))){
 
-					throw new \InvalidArgumentException(sprintf('Invalid argument type, must be one of: %s',implode(',',array_keys($this->names))));
+					throw new \InvalidArgumentException('Invalid argument type, must be one of: long or short');
 
 				}
 

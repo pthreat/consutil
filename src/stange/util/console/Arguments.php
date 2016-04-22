@@ -32,13 +32,14 @@
 			private function __isOption($value){
 
 					$isLong	=	substr($value,0,2) == $this->separators['long'];
-					$isShort	=	substr($value,0,1) == $this->separators['short'];
 
 					if($isLong){
 
 						return 'long';
 
 					}
+
+					$isShort	=	substr($value,0,1) == $this->separators['short'];
 
 					if($isShort){
 
@@ -51,16 +52,37 @@
 			}
 
 			private function __parseArguments(Array $arguments){
+	
+				$arguments	=	array_values($arguments);
+				$size			=	sizeof($arguments);
 
-				foreach($arguments as $num=>$value){
+				for($num=0;$num<$size;$num++){
+
+					$value	=	$arguments[$num];
 
 					$type	=	$this->__isOption($value);
+
+					if(!$type){
+						continue;
+					}
 
 					switch($type){
 
 						case 'short':
+
 							$name		=	substr($value,1);
-							$value	=	isset($arguments[$num+1]) ? $arguments[$num+1]	:	NULL;
+
+							if(isset($arguments[$num+1])){
+
+								$value	=	$arguments[$num+1];
+								$num++;
+
+							}else{
+
+								$value	=	NULL;
+
+							}
+
 						break;
 
 						case	'long':
@@ -74,7 +96,7 @@
 
 					if($this->__isOption($value)){
 
-						$value	=	NULL;
+						continue;
 
 					}
 
