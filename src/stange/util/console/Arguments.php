@@ -6,7 +6,6 @@
 
 		class Arguments{
 
-			private	$parsedArguments	=	Array();
 			private	$arguments			=	Array();
 			private	$options				=	Array();
 			private	$separators			=	Array('long'=>'--','short'=>'-');
@@ -63,7 +62,9 @@
 					$type	=	$this->__isOption($value);
 
 					if(!$type){
+
 						continue;
+
 					}
 
 					switch($type){
@@ -100,15 +101,15 @@
 
 					}
 
-					$this->parsedArguments[]	=	new Argument($name,$type,$value);
+					$this->arguments[]	=	new Argument($name,$type,$value);
 
 				}
 
 			}
 
-			public function getParsedArguments(){
+			public function getArguments(){
 
-				return $this->parsedArguments;
+				return $this->arguments;
 
 			}
 
@@ -137,21 +138,21 @@
 
 			}
 
-			public function find($name){
+			public function find($args){
 
-				foreach($this->options as $num=>$option){
+				$args	=	func_get_args();
 
-					foreach($this->arguments as $arg){
+				foreach($this->arguments as $num=>$argument){
 
-						if($isShort && $arg->getShortName() == $option){
+					if(in_array($argument->getName(),$args)){
 
-							$option->validate($value);
-
-						}
+						return $argument;
 
 					}
 
 				}
+
+				return NULL;
 
 			}
 

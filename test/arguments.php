@@ -6,4 +6,7 @@
 	use \stange\util\console\Argument;
 
 	$arguments	=	new Arguments($_SERVER['argv']);
-	var_dump($arguments->getParsedArguments());
+
+	echo "Trying to find argument test or short argument t\n";
+
+	var_dump($arguments->find('test','t'));
