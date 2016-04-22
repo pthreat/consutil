@@ -1,0 +1,2 @@
+# consutil
+Console related utilities
